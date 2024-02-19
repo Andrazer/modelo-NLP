@@ -4,6 +4,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
 
+
+#device = "cuda"
+#device = "cpu"
+
 # Definir una clase para tu conjunto de datos personalizado
 class MyDataset(Dataset):
     def __init__(self, data_path, tokenizer, max_length=128):
@@ -29,15 +33,16 @@ class MyDataset(Dataset):
 data_path = "pdf/icp.txt"
 
 # Tokenizador y modelo preentrenado
-#tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
-#model = DistilBertForMaskedLM.from_pretrained('distilbert-base-uncased')
+tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+model = DistilBertForMaskedLM.from_pretrained('distilbert-base-uncased')
 
-tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+"""tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
 tokenizer.pad_token = tokenizer.eos_token
-model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")"""
 
 # Dataset y DataLoader
 dataset = MyDataset(data_path, tokenizer)
+#dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
 dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
 
 # Función de entrenamiento

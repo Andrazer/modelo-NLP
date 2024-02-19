@@ -3,3 +3,8 @@ torch
 tqdm
 fitz
 PyMuPDF
+cupy-cuda12x
+numba
+torch
+torchvision
+torchaudio

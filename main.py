@@ -30,20 +30,20 @@ class MyDataset(Dataset):
         return self.data[idx]
 
 # Ruta a tus datos
-data_path = "pdf/icp.txt"
+data_path = "pdf/1-3.txt"
 
 # Tokenizador y modelo preentrenado
-tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
-model = DistilBertForMaskedLM.from_pretrained('distilbert-base-uncased')
+#tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+#model = DistilBertForMaskedLM.from_pretrained('distilbert-base-uncased')
 
-"""tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")
 tokenizer.pad_token = tokenizer.eos_token
-model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")"""
+model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")
 
 # Dataset y DataLoader
 dataset = MyDataset(data_path, tokenizer)
 #dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
-dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
+dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
 
 # Función de entrenamiento
 def train_model(model, dataloader, optimizer, device):

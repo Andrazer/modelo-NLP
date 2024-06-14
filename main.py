@@ -30,7 +30,7 @@ class MyDataset(Dataset):
         return self.data[idx]
 
 # Ruta a tus datos
-data_path = "pdf/1-3.txt"
+data_path = "pdf/test.txt"
 
 # Tokenizador y modelo preentrenado
 #tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
@@ -50,7 +50,7 @@ def train_model(model, dataloader, optimizer, device):
     model.train()
     total_loss = 0
     for batch in tqdm(dataloader, desc="Training"):
-        inputs = tokenizer(batch, return_tensors='pt', padding=True, truncation=True)
+        inputs = tokenizer(batch, return_tensors='pt', padding=True, truncation=True, max_length=256)
         inputs = {key: val.to(device) for key, val in inputs.items()}
         outputs = model(**inputs, labels=inputs["input_ids"])
         loss = outputs.loss

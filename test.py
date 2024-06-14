@@ -12,11 +12,20 @@ print(f"Usando dispositivo: {device}")
 # Los modelos más pequeños también pueden lograr un buen rendimiento:
 # https://huggingface.co/models?filter=causal-lm
 # model_name = "EleutherAI/gpt-j-6B"
-model_name = "facebook/bart-base"
+#model_name = "mistralai/Mistral-7B-Instruct-v0.1"
 
 # Cargar modelo y tokenizador
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+#tokenizer = AutoTokenizer.from_pretrained(model_name)
+#model = AutoModelForCausalLM.from_pretrained(model_name)
+# Define el token de padding
+#tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+model_id = "amazon/MistralLite"
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(model_id,
+                                             torch_dtype=torch.bfloat16,
+                                             use_flash_attention_2=True,
+                                             device_map="auto",)
 
 # Cargar el modelo y el tokenizador
 #model = AutoModelForCausalLM.from_pretrained("modelo/modelo")
@@ -86,3 +95,4 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 for epoch in range(epochs):
     print(f"Epoch {epoch+1}/{epochs}")
     avg_loss = train_model(model, dataloader, optimizer, device)
+

@@ -9,3 +9,6 @@ torch
 torchvision
 torchaudio
 onnxmltools
+accelerate
+flash-attn
+datasets
